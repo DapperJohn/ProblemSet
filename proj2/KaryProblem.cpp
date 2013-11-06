@@ -18,73 +18,74 @@
 
 using namespace std;
 
-class kheap {
+class krayheap {
+private:
+    int ascend(int descend);
+    void krayheapifyup(int pos);
+    void krayheapifydown(int pos);
+    int left(int ascend);
+    int right(int ascend);
 public:
-    kheap();
-    kheap(int k);
-    int size() { return heap.size(); }
+    krayheap();
+    krayheap(int k);
+    int size() {
+        return heap.size(); }
     void insert(int element);
     int extract_min();
-private:
-    int asc(int desc);
-    int left(int asc);
-    int right(int asc);
-    void kheapifyup(int pos);
-    void kheapifydown(int pos);
 private:
     vector<int> heap; //here // i have no idea
 };
 
-kheap::kheap(){
+krayheap::krayheap(){
 }
 
-int kheap::asc(int desc) {
-    if (desc != 0)
-    {
-        int i = (desc - 1) >> 1;
+int krayheap::ascend(int descend) {
+    if (descend != 0){
+        int i = (descend - 1) >> 1;
         return i;
     }
     return -1;
 }
 
-void kheap::kheapifyup(int pos) {
-    while ( ( pos > 0 ) && ( asc(pos) >= 0 ) && ( heap[asc(pos)] > heap[pos] ) )
-    {
-        int tmp = heap[asc(pos)];
-        heap[asc(pos)] = heap[pos];
-        heap[pos] = tmp;
-        pos = asc(pos);
-    }
-}
-
-void kheap::kheapifydown(int pos) {
-    int desc = left(pos);
-    if ( ( desc > 0 ) && ( right(pos) > 0 ) && ( heap[desc] > heap[right(pos)] ) ) {
-        desc = right(pos);
-    }
-    if ( desc > 0 ) {
-        int tmp = heap[pos];
-        heap[pos] = heap[desc];
-        heap[desc] = tmp;
-        kheapifydown(desc);
-    }
-}
-
-void kheap::insert(int element) {
+void krayheap::insert(int element) {
     heap.push_back(element);
-    kheapifyup(heap.size() - 1);
+    krayheapifyup(heap.size() - 1);
 }
 
-int kheap::extract_min() {
+int krayheap::extract_min() {
     int min = heap.front();
     heap[0] = heap.at(heap.size() - 1);
     heap.pop_back();
-    kheapifydown(0);
+    krayheapifydown(0);
     return min;
 }
 
-int kheap::left(int asc) {
-    int i = ( asc << 1 ) + 1;
+
+
+void krayheap::krayheapifyup(int pos) {
+    while ( ( pos > 0 ) && ( ascend(pos) >= 0 ) && ( heap[ascend(pos)] > heap[pos] ) ){
+        int tmp = heap[ascend(pos)];
+        heap[ascend(pos)] = heap[pos];
+        heap[pos] = tmp;
+        pos = ascend(pos);
+    }
+}
+
+void krayheap::krayheapifydown(int pos) {
+    int descend = left(pos);
+    if ( ( descend > 0 ) && ( right(pos) > 0 ) && ( heap[descend] > heap[right(pos)] ) ) {
+        descend = right(pos);
+    }
+    if ( descend > 0 ) {
+        int tmp = heap[pos];
+        heap[pos] = heap[descend];
+        heap[descend] = tmp;
+        krayheapifydown(descend);
+    }
+}
+
+int krayheap::left(int ascend) {
+    int i = ( ascend << 1 ) + 1;
     if ( i < heap.size() ) {
         return i;
     }
@@ -94,8 +95,8 @@ int kheap::left(int asc) {
     return -1;
 }
 
-int kheap::right(int asc) {
-    int i = ( asc << 1 ) + 2;
+int krayheap::right(int ascend) {
+    int i = ( ascend << 1 ) + 2;
     if ( i < heap.size() ) {
         return i;
     }
@@ -106,7 +107,7 @@ int kheap::right(int asc) {
 }
 
 int main() {
-    kheap* mykheap = new kheap();
+    krayheap* mykrayheap = new krayheap();
     const int SIZE = 3;
     char input[SIZE];
     ifstream datafile;
