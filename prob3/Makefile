@@ -27,7 +27,7 @@ PRT  =	lp2
 GRD  =	README Makefile ${HDR} ${SRC}
 
 DEP =	${SRC}
-CFLAGS= -g
+CFLAGS= -g -std=c++0x
 
 # Use g++ as C compiler as well
 CC =	g++
@@ -70,8 +70,8 @@ depend: ${SRC} ${SRCg}
 
 # DO NOT DELETE THIS LINE - make depend DEPENDS ON IT
 
+timer.o: timer.cpp timer.h
 main.o: main.cpp AVLTree.h timer.h
 AVLTree.o: AVLTree.cpp AVLTree.h
-timer.o: timer.cpp timer.h
 
 # *** Do not add anything here - It will go away. ***

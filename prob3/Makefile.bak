@@ -19,11 +19,11 @@
 # submit    to hand in your program for grading
 # depend    to update header file dependencies
 
-HDR  =	AVLTree.h timer.h
-SRC  =	main.cpp AVLTree.cpp timer.cpp
-OBJ  =	main.o AVLTree.o timer.o
-EXE  =	ALVTree
-PRT  =	lp2
+HDR  =	timer.h AVLTree.h 
+SRC  =	timer.cpp main.cpp AVLTree.cpp 
+OBJ  =	timer.o main.o AVLTree.o 
+EXE  =	ALVTree 
+PRT  =	lp2 
 GRD  =	README Makefile ${HDR} ${SRC}
 
 DEP =	${SRC}
@@ -55,10 +55,6 @@ listall:
 	@lp -d ${PRT} -o duplex ${GRD}
 	@echo "Complete: `date`" >> list
 
-submit:
-	make veryclean
-	/classes/cs4101/cs4101a/bin/r_copy 2
-
 .SUFFIXES: .cpp
 
 %.o: %.cpp
@@ -74,8 +70,8 @@ depend: ${SRC} ${SRCg}
 
 # DO NOT DELETE THIS LINE - make depend DEPENDS ON IT
 
+timer.o: timer.cpp timer.h
 main.o: main.cpp AVLTree.h timer.h
 AVLTree.o: AVLTree.cpp AVLTree.h
-timer.o: timer.cpp timer.h
 
 # *** Do not add anything here - It will go away. ***
