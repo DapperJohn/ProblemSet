@@ -24,17 +24,6 @@ using namespace std;
 
 int main()
 {
-	// Read in elements to sort.
-	/*inputFile.open("10exp6.txt");
-	while (!inputFile.eof()) { // Probably should read input from file each time, but whatevs
-		int tmp = 0;
-		inputFile >> tmp;
-		if (tmp > 0) {
-			radixTestList.push_back(tmp);
-			qsortTestList.push_back(tmp);
-		}
-	}
-	inputFile.close();*/
 	//TestResult result;
 	//map<string, TestResult> TestMaps;
 	//TestMap tests;
@@ -45,6 +34,45 @@ int main()
 	while(!feof ( fptr ) && fscanf(fptr, "%s %d", testSwitch, &input))
 	{
 		printf("testSwitch: %s\ninput: %d\n\n", testSwitch, input);
+		switch(testSwitch[0])
+		{
+			case 'I':
+				//insert
+			break;
+			case 'M':
+				switch(testSwitch[1])
+				{
+					case 'I':
+						//min
+					break;
+					case 'A'
+						//max
+					break;
+				}
+			break;
+			case 'T':
+				//inorder
+			break;
+			case 'S':
+				switch(testSwitch[1])
+				{
+					case 'R':
+						//search
+					break;
+					case 'C':
+						//successor
+					break;
+					case 'E':
+						//select
+				}
+			break;
+			case 'P':
+				//predecessor
+			break;
+			case 'R':
+				//rank
+			break;
+		}
 	}
 	
 
