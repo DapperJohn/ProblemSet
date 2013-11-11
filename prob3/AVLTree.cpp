@@ -7,32 +7,35 @@
 #include <cstdio>
 #include <cstdlib>
 
+//John Anny and Selby Kendrick
+//CSC 3102 Sect 001
+//November 7th, 2013
+//Problem #1
+//
+//Description:
+//Main program for AVL Tree Problem #3
+
 using namespace std;
 
-int AVLTree::height(struct node * N)
-{
+int AVLTree::height(struct node * N){
 	if (N == NULL) return 0;
 	return N->height;
 }
 
-int AVLTree::height()
-{
+int AVLTree::height(){
 	return height(root);
 }
 
-int AVLTree::size(struct node * node)
-{
+int AVLTree::size(struct node * node){
 	if (node == NULL) return 0;
 	else return (size(node->left) + 1 + size(node->right));
 }
 
-int AVLTree::max(int a, int b)
-{
+int AVLTree::max(int a, int b){
 	return (a > b) ? a : b;
 }
 
-struct node * AVLTree::createNode(int key)
-{
+struct node * AVLTree::createNode(int key){
 	struct node * node = (struct node *) malloc(sizeof(struct node));
 	node->key = key;
 	node->left = NULL;
@@ -43,8 +46,7 @@ struct node * AVLTree::createNode(int key)
 	return (node);
 }
 
-struct node * AVLTree::rightRotate(struct node * y)
-{
+struct node * AVLTree::rightRotate(struct node * y){
 	struct node * x = y->left;
 	struct node * T2 = x->right;
 
@@ -61,8 +63,7 @@ struct node * AVLTree::rightRotate(struct node * y)
 	return x;
 }
 
-struct node * AVLTree::leftRotate(struct node * x)
-{
+struct node * AVLTree::leftRotate(struct node * x){
 	struct node * y = x->right;
 	struct node * T2 = y->left;
 
@@ -79,30 +80,26 @@ struct node * AVLTree::leftRotate(struct node * x)
 	return y;
 }
 
-int AVLTree::getBalanceFactor(struct node * N)
-{
+int AVLTree::getBalanceFactor(struct node * N){
 	if (N == NULL) return 0;
 	return height(N->left) - height(N->right);
 }
 
-struct node * AVLTree::min(struct node * node)
-{
+struct node * AVLTree::min(struct node * node){
 	struct node * current = node;
 	while (current->left != NULL)
 		current = current->left;
 	return current;
 }
 
-struct node * AVLTree::max(struct node * node)
-{
+struct node * AVLTree::max(struct node * node){
 	struct node * current = node;
 	while (current->right != NULL)
 		current = current->right;
 	return current;
 }
 
-struct node * AVLTree::insert(struct node * node, int key)
-{
+struct node * AVLTree::insert(struct node * node, int key){
 	// Perform BST insertion
 	if (node == NULL) return (createNode(key));
 
@@ -143,8 +140,7 @@ struct node * AVLTree::insert(struct node * node, int key)
 	return node;
 }
 
-struct node * AVLTree::insert(int key)
-{
+struct node * AVLTree::insert(int key){
 	if (root == NULL) {
 		root = createNode(key);
 		return root;
@@ -153,8 +149,7 @@ struct node * AVLTree::insert(int key)
 	return insert(root, key);
 }
 
-struct node * AVLTree::erase(struct node * node, int key)
-{
+struct node * AVLTree::erase(struct node * node, int key){
 	// 1 PERFORM BST DELETE
 	if (node == NULL) return node;
 
@@ -217,13 +212,11 @@ struct node * AVLTree::erase(struct node * node, int key)
 	return node;
 }
 
-struct node * AVLTree::erase(int key)
-{
+struct node * AVLTree::erase(int key){
 	return erase(root, key);
 }
 
-bool AVLTree::search(struct node * node, int key)
-{
+bool AVLTree::search(struct node * node, int key){
 	if (node == NULL) return false;
 
 	if (node->key == key) return true;
@@ -233,13 +226,8 @@ bool AVLTree::search(struct node * node, int key)
 		search(node->right, key);
 }
 
-bool AVLTree::search(int key)
-{
-	search(root, key);
-}
 
-struct node * AVLTree::successor(struct node * nodeX)
-{
+struct node * AVLTree::successor(struct node * nodeX){
 	struct node * nodeY = nodeX->parent;
 
 	if (nodeX->right != NULL)
@@ -252,8 +240,7 @@ struct node * AVLTree::successor(struct node * nodeX)
 	return nodeY;
 }
 
-struct node * AVLTree::predecessor(struct node * nodeX)
-{
+struct node * AVLTree::predecessor(struct node * nodeX){
 	if (nodeX->left != NULL)
 		return (max(nodeX->left));
 	struct node * nodeY = nodeX->parent;
@@ -264,8 +251,12 @@ struct node * AVLTree::predecessor(struct node * nodeX)
 	return nodeY;
 }
 
-void AVLTree::preOrderTraversal(struct node * root)
-{
+bool AVLTree::search(int key){
+	search(root, key);
+}
+
+
+void AVLTree::preOrderTraversal(struct node * root){
 	if (root != NULL) {
 		printf("%d ", root->key);
 		preOrderTraversal(root->left);
@@ -274,13 +265,23 @@ void AVLTree::preOrderTraversal(struct node * root)
 }
 
 
-void AVLTree::preOrderTraversal()
-{
+void AVLTree::preOrderTraversal(){
 	preOrderTraversal(root);
 }
 
-void AVLTree::print()
-{
+void AVLTree::inOrderTraversal(struct node * root){
+	if (root != NULL) {
+		inOrderTraversal(root->left);
+		printf("%d ", root->key);
+		inOrderTraversal(root->right);
+	}
+}
+
+void AVLTree::inOrderTraversal(){
+	inOrderTraversal(root);
+}
+
+void AVLTree::print(){
 	if (!root) return;
 	int indent = 3 * height(root);
 	int space = 2;
@@ -308,22 +309,8 @@ void AVLTree::print()
 	}
 }
 
-void AVLTree::inOrderTraversal(struct node * root)
-{
-	if (root != NULL) {
-		inOrderTraversal(root->left);
-		printf("%d ", root->key);
-		inOrderTraversal(root->right);
-	}
-}
 
-void AVLTree::inOrderTraversal()
-{
-	inOrderTraversal(root);
-}
-
-int AVLTree::rank(struct node * x, int i)
-{
+int AVLTree::rank(struct node * x, int i){
 	if (x == NULL) return 0;
 	if (i < x->key) return rank(x->left, i);
 	if (i == x->key) return (x->left->size + 1);
@@ -331,13 +318,11 @@ int AVLTree::rank(struct node * x, int i)
 	return ((x->left->size + 1) + (rank(x->right, i)));
 }
 
-int AVLTree::rank(int i)
-{
+int AVLTree::rank(int i){
 	rank(root, i);
 }
 
-int AVLTree::select(struct node * x, int i)
-{
+int AVLTree::select(struct node * x, int i){
     if (x == NULL) return 0;
     if (x->left->size >= i)
         return select(x->left, i);
@@ -346,7 +331,6 @@ int AVLTree::select(struct node * x, int i)
     return select(x->right, i - 1 - (x->left->size));
 }
 
-int AVLTree::select(int i)
-{
+int AVLTree::select(int i){
     return AVLTree::select(root, i);
 }
