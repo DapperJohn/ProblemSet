@@ -10,10 +10,10 @@
 //John Anny and Selby Kendrick
 //CSC 3102 Sect 001
 //November 7th, 2013
-//Problem #1
+//Problem #3
 //
 //Description:
-//Main program for AVL Tree Problem #3
+//Main program for AVL Tree Problem 
 
 using namespace std;
 
