@@ -13,21 +13,9 @@
 
 using namespace std;
 
-//class TestResult {public: bool success; int timeMs;};
-//typedef struct TestResult { bool success = false; int timeMs = 0; } TestResult;
-//struct;
-//typedef AVLTree (*TestFunc)();
-//typedef function<TestResult(AVLTree)> TestFunc();
-//typedef function<TestResults(AVLTree&)> ();
-//auto lambda = [](AVLTree x) { return x; };
-//typedef	map<string, TestResult> TestMap;
-
 int main()
 {
-	//TestResult result;
-	//map<string, TestResult> TestMaps;
-	//TestMap tests;
-
+	
 	FILE *fptr = fopen("AVLTree-input.txt", "r");
 	char* testSwitch; int input, numRead;
 
